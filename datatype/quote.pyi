@@ -1,7 +1,7 @@
 import ctypes
 from typing import ClassVar
 
-class CThostFtdcDepthMarketDataField(ctypes.Structure):
+class TickData(ctypes.Structure):
     _fields_: ClassVar[list[tuple[str, type]]]
 
     TradingDay: bytes

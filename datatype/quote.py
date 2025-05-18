@@ -1,7 +1,8 @@
 import ctypes
 
 
-class CThostFtdcDepthMarketDataField(ctypes.Structure):
+# CThostFtdcDepthMarketDataField
+class TickData(ctypes.Structure):
     _fields_ = [
         ("TradingDay", ctypes.c_char * 9),
         ("reserve1", ctypes.c_char * 31),
