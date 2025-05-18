@@ -52,3 +52,5 @@ class TickData(ctypes.Structure):
     ExchangeInstID: bytes
     BandingUpperPrice: float
     BandingLowerPrice: float
+
+    def to_dict(self) -> dict: ...

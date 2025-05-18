@@ -11,6 +11,7 @@ def main():
             binary_msg = sub.recv()
             tick = quote.TickData.from_buffer_copy(binary_msg)
             print(tick)
+            print(tick.to_dict())
 
 
 if __name__ == "__main__":

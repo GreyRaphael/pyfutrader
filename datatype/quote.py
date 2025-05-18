@@ -60,3 +60,6 @@ class TickData(ctypes.Structure):
             val = getattr(self, name)
             parts.append(f"{name}={val}")
         return f"{self.__class__.__name__}({', '.join(parts)})"
+
+    def to_dict(self):
+        return {name: getattr(self, name) for name, _ in self._fields_}
