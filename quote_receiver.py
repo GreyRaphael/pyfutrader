@@ -10,7 +10,10 @@ def main():
 
     nng_config = utils.read_config("config/nng.toml")
     # empty topics to receive all messages
-    with pynng.Sub0(dial=nng_config["Address"], topics=b"") as sub:
+    sub = pynng.Sub0(topics=b"")
+    # do a non-blocking dial: no exception if nobody is listening yet!
+    sub.dial(nng_config["Address"], block=False)
+    with sub:
         while True:
             binary_msg = sub.recv()
             tick = quote.TickData.from_buffer_copy(binary_msg)
