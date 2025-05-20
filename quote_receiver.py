@@ -2,6 +2,7 @@ from config import utils
 import pynng
 from datatype import quote
 from ta import rolling
+import datetime as dt
 
 
 def main():
@@ -13,9 +14,11 @@ def main():
         while True:
             binary_msg = sub.recv()
             tick = quote.TickData.from_buffer_copy(binary_msg)
-            print(tick.InstrumentID, f"{tick.TradingDay + b' ' + tick.UpdateTime}.{tick.UpdateMillisec}", tick.LastPrice)
+            tick_dt = dt.datetime.fromtimestamp(tick.stamp / 1000.0)
+            print(tick_dt, tick.symbol, tick.last)
+            # print(tick)
             # print(tick.to_dict())
-            ma5 = smaer.update(tick.LastPrice)
+            ma5 = smaer.update(tick.last)
             print(f"======>ma5={ma5}")
 
 
