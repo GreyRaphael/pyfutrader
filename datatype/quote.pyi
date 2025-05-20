@@ -22,21 +22,21 @@ class TickData(ctypes.Structure):
     preoi: float
     avgprice: float
     adj: float
-    ap1: float
-    ap2: float
-    ap3: float
-    ap4: float
     ap5: float
+    ap4: float
+    ap3: float
+    ap2: float
+    ap1: float
     bp1: float
     bp2: float
     bp3: float
     bp4: float
     bp5: float
-    av1: int
-    av2: int
-    av3: int
-    av4: int
     av5: int
+    av4: int
+    av3: int
+    av2: int
+    av1: int
     bv1: int
     bv2: int
     bv3: int

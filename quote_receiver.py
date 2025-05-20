@@ -19,7 +19,7 @@ def main():
             tick = quote.TickData.from_buffer_copy(binary_msg)
             tick_dt = dt.datetime.fromtimestamp(tick.stamp / 1000.0)
             print(tick_dt, tick.symbol, tick.last)
-            # print(tick)
+            # print(tick_dt, tick)
             # print(tick.to_dict())
             ma5 = smaer.update(tick.last)
             print(f"======>ma5={ma5}")
