@@ -10,37 +10,37 @@ class TickData(ctypes.Structure):
     high: float
     low: float
     last: float
-    close: float
-    settle: float
-    limit_up: float
     limit_down: float
+    limit_up: float
     preclose: float
+    close: float
     presettle: float
-    volume: float
-    amount: float
-    oi: float
+    settle: float
     preoi: float
+    oi: float
+    volume: int
+    amount: float
     avgprice: float
-    adj: float
-    ap5: float
-    ap4: float
-    ap3: float
-    ap2: float
     ap1: float
+    ap2: float
+    ap3: float
+    ap4: float
+    ap5: float
     bp1: float
     bp2: float
     bp3: float
     bp4: float
     bp5: float
-    av5: int
-    av4: int
-    av3: int
-    av2: int
     av1: int
+    av2: int
+    av3: int
+    av4: int
+    av5: int
     bv1: int
     bv2: int
     bv3: int
     bv4: int
     bv5: int
+    adj: float
 
     def to_dict(self) -> dict: ...
