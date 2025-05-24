@@ -14,10 +14,10 @@ def main():
     subscriber = context.socket(zmq.SUB)
 
     # Set high-water mark for inbound messages
-    subscriber.setsockopt(zmq.RCVHWM, 0)
+    subscriber.set(zmq.RCVHWM, 0)
 
     # Subscribe to topic 'rb'
-    subscriber.setsockopt(zmq.SUBSCRIBE, b"")
+    subscriber.set(zmq.SUBSCRIBE, b"")
 
     # Non-blocking connect (equivalent to NNG's block=False)
     try:
