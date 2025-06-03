@@ -4,7 +4,7 @@ import ctypes
 # CThostFtdcDepthMarketDataField
 class TickData(ctypes.Structure):
     _fields_ = [
-        ("symbol", ctypes.c_char * 32),
+        ("symbol", ctypes.c_char * 16),
         ("stamp", ctypes.c_int64),
         ("open", ctypes.c_double),
         ("high", ctypes.c_double),
