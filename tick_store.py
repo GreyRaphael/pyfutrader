@@ -52,7 +52,7 @@ def main():
                 df = pl.DataFrame(buffer)
 
                 # Write to Parquet (default compression = "snappy")
-                df.write_parquet(filename)
+                df.write_parquet(filename, compression="zstd", compression_level=10)
 
                 print(f"Wrote batch {batch_idx} ({len(buffer)} rows) → {filename}")
 
@@ -65,7 +65,7 @@ def main():
             batch_idx += 1
             filename = os.path.join(output_dir, f"ticks_{batch_idx:04d}.parquet")
             df = pl.DataFrame(buffer)
-            df.write_parquet(filename)
+            df.write_parquet(filename, compression="zstd", compression_level=10)
             print(f"\nShutdown: wrote final batch {batch_idx} ({len(buffer)} rows) → {filename}")
 
         print("Exiting.")
