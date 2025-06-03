@@ -24,11 +24,13 @@ def main():
 
     # ========== CONFIGURATION ==========
     BATCH_SIZE = 10000
+    FLUSH_INTERVAL = 300  # seconds,  periodic flushes
     output_dir = dt.date.today().strftime("data/%Y%m%d")
     os.makedirs(output_dir, exist_ok=True)
 
-    buffer = []  # will hold up to BATCH_SIZE rows before writing
+    buffer: list[dict] = []  # will hold up to BATCH_SIZE rows before writing
     batch_idx = 0
+    last_flush_time = dt.datetime.now()
     # ===================================
 
     try:
@@ -43,8 +45,9 @@ def main():
             # (e.g. as a tuple: (datetime, symbol, last_price))
             buffer.append(tick.to_dict())
 
+            now = dt.datetime.now()
             # Once we hit BATCH_SIZE entries, flush to Parquet
-            if len(buffer) >= BATCH_SIZE:
+            if len(buffer) >= BATCH_SIZE or (now - last_flush_time).total_seconds() >= FLUSH_INTERVAL:
                 batch_idx += 1
                 filename = os.path.join(output_dir, f"ticks_{batch_idx:04d}.parquet")
 
@@ -53,6 +56,7 @@ def main():
 
                 # Write to Parquet (default compression = "snappy")
                 df.write_parquet(filename, compression="zstd", compression_level=10)
+                last_flush_time = now
 
                 print(f"Wrote batch {batch_idx} ({len(buffer)} rows) → {filename}")
 
@@ -67,6 +71,10 @@ def main():
             df = pl.DataFrame(buffer)
             df.write_parquet(filename, compression="zstd", compression_level=10)
             print(f"\nShutdown: wrote final batch {batch_idx} ({len(buffer)} rows) → {filename}")
+
+            # Close the subscriber and context
+            subscriber.close()
+            context.term()
 
         print("Exiting.")
 
