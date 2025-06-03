@@ -8,7 +8,7 @@ import datetime as dt
 def main():
     smaer = rolling.Meaner(5)
 
-    nng_config = utils.read_config("config/nng.toml")
+    config = utils.read_config("config/zmq.toml")
 
     context = zmq.Context()
     subscriber = context.socket(zmq.SUB)
@@ -19,9 +19,8 @@ def main():
     # Subscribe to topic 'rb'
     subscriber.set(zmq.SUBSCRIBE, b"")
 
-    # Non-blocking connect (equivalent to NNG's block=False)
     try:
-        subscriber.connect(nng_config["Address"])
+        subscriber.connect(config["Address"])
     except zmq.ZMQError as e:
         print(f"Connection error: {e}")
 

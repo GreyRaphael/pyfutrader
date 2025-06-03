@@ -1,5 +1,0 @@
-Address = "ipc:///tmp/pubsub.ipc"
-# Address = "ipc://@pubsub" # Linux Only
-PollIntervalMs = 10
-BrokerFile = "openctp.toml"
-Symbols = ["MA509", "rb2507"]
